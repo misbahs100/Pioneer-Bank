@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pioneer Bank</title>
+    <!-- css file -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+</head>
+<body>
+   <div id="loginArea" class="login-area">
+        <h1 class="text-center">Welcome To Pioneer Bank</h1>
+        <div class="submit-area">
+            <h4>Login</h4>
+            <input class="form-control" type="text" placeholder="Email">
+            <br>
+            <input class="form-control" type="password" placeholder="Password">
+            <br>
+            <button id="submitBtn" class="btn btn-success">Enter</button>
+        </div>
+   </div>
+   <div id="transactionArea" class="transaction-area">
+       <div class="row">
+           <div class="col-md-4">
+               <div class="status deposit">
+                   <h5>Deposit</h5>
+                   <h3>$ <span id="depositAmount">00</span></h3>
+               </div>
+           </div>
+           <div class="col-md-4">
+             <div class="status withdraw">
+                <h5>Withdraw</h5>
+                <h3>$ <span id="withdrawAmount">00</span></h3>
+             </div>
+            </div>
+        <div class="col-md-4">
+            <div class="status balance">
+                <h5>Balance</h5>
+                <h3>$ <span id="balanceAmount">1240</span></h3>
+            </div>
+        </div>
+       </div>
+       <div class="row">
+           <div class="col-md-6">
+               <div class="submit-area">
+                    <h3>Deposit</h3>
+                    <input id="depositInput" class="form-control" type="text" placeholder="Deposit">
+                    <br>
+                    <button id="depositBtn" class="btn btn-success">Deposit</button>
+               </div>
+           </div>
+           <div class="col-md-6">
+               <div class="submit-area">
+                    <h3>Withdraw</h3>
+                    <input id="withdrawInput" class="form-control" type="text" placeholder="Withdraw">
+                    <br>
+                    <button id="withdrawBtn" class="btn btn-success">Withdraw</button>
+               </div>
+           </div>
+       </div>
+   </div>
+    
+
+
+<!-- JavaScript area-------- -->
+   <script>
+       var loginArea = document.getElementById("loginArea");
+        var submitBtn = document.getElementById("submitBtn");
+        var transactionArea = document.getElementById("transactionArea");
+        transactionArea.style.display = "none";
+        submitBtn.addEventListener("click", function(){
+            loginArea.style.display = "none";
+           
+            transactionArea.style.display = "block";
+        })
+
+        //deposit button event handler
+        var depositBtn = document.getElementById("depositBtn");
+        depositBtn.addEventListener("click", function(){
+            editSum("depositInput", "depositAmount");
+            editSum("depositInput", "balanceAmount");
+
+            document.getElementById("depositInput").value = "";
+        })
+
+        //withdraw button event handler
+        var withdrawBtn = document.getElementById("withdrawBtn");
+        withdrawBtn.addEventListener("click", function(){
+            editSum("withdrawInput", "withdrawAmount");
+            editSum("withdrawInput", "balanceAmount")
+
+            document.getElementById("withdrawInput").value = "";
+        })
+
+
+
+        // function for editing sum of the deposit and balance
+        function editSum(id1, id2){
+            var Input = document.getElementById(id1).value;
+            var InputParse = parseFloat(Input);
+            // console.log(InputParse);
+            
+            
+            var Amount = document.getElementById(id2).innerText;
+            var AmountParse = parseFloat(Amount);
+            // console.log(AmountParse);
+
+            if(id1=="withdrawInput" && id2=="balanceAmount"){
+                InputParse = (-1*InputParse);
+            }
+
+            var total = InputParse + AmountParse;
+            document.getElementById(id2).innerText = total;
+
+        }
+        
+
+
+
+   </script>
+</body>
+</html>
